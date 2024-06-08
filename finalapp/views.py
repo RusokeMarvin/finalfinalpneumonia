@@ -19,7 +19,7 @@ REMOTE_MODEL_PATH = 'oursecondmodel.pth'
 # Initialize Firebase Admin SDK with the storage bucket name
 cred = credentials.Certificate(SERVICE_ACCOUNT_KEY_PATH)
 firebase_admin.initialize_app(cred, {
-    'storageBucket': 'djangopneumonia.appspot.com'
+    'storageBucket': 'djangopneumonia-b28e1.appspot.com'
 })
 
 def download_model():
