@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grad-CAM</title>
+</head>
+<body>
+    <h1>Upload Image for Grad-CAM</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="image" accept="image/*">
+        <button type="submit">Upload</button>
+    </form>
+    {% if uploaded_file_url %}
+        <h2>Original Image:</h2>
+        <img src="{{ uploaded_file_url }}" alt="Uploaded Image">
+        <h2>Grad-CAM Heatmap:</h2>
+        <img src="{{ cam_file_url }}" alt="Grad-CAM Heatmap">
+    {% endif %}
+</body>
+</html>
+

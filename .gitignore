@@ -1,0 +1,4 @@
+# .gitignore
+venv/
+"finalapp/ml_models/oursecondmodel.pth" 
+"CODE/serviceAccountKey.json" 
