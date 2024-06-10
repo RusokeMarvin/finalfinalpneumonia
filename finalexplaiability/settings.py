@@ -72,7 +72,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'finalexplaiability.wsgi.application'
 
-import MySQLdb as Database
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
