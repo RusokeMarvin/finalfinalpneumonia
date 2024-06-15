@@ -10,17 +10,20 @@ import torch.nn as nn
 import os
 import firebase_admin
 from firebase_admin import credentials, storage
+from django.views.decorators.csrf import csrf_exempt
 
 # Path to your service account key file
-SERVICE_ACCOUNT_KEY_PATH = 'CODE/serviceAccountKey.json'
-LOCAL_MODEL_PATH = 'finalapp/ml_models/oursecondmodel.pth'
+SERVICE_ACCOUNT_KEY_PATH = '/home/explainability/finalfinalpneumonia/CODE/serviceAccountKey.json'
+LOCAL_MODEL_PATH = '/home/explainability/finalfinalpneumonia/finalapp/ml_models/oursecondmodel.pth'
 REMOTE_MODEL_PATH = 'oursecondmodel.pth'
 
 # Initialize Firebase Admin SDK with the storage bucket name
-cred = credentials.Certificate(SERVICE_ACCOUNT_KEY_PATH)
-firebase_admin.initialize_app(cred, {
-    'storageBucket': 'djangopneumonia.appspot.com'
-})
+if not firebase_admin._apps:
+    cred = credentials.Certificate(SERVICE_ACCOUNT_KEY_PATH)
+    default_app = firebase_admin.initialize_app(cred, {
+        'storageBucket': 'djangopneumonia.appspot.com'
+    })
+
 
 def download_model():
     """Download the model from Firebase Storage if not present locally."""
@@ -100,6 +103,7 @@ state_dict = torch.load(LOCAL_MODEL_PATH, map_location=torch.device('cpu'))
 model.load_state_dict(state_dict)
 model.eval()
 
+@csrf_exempt
 def index(request):
     if request.method == 'POST' and request.FILES['image']:
         image = request.FILES['image']
@@ -134,4 +138,4 @@ def index(request):
 
         return JsonResponse(response_data)
 
-    return render(request, 'index.html')
+    return render(request, '/home/explainability/finalfinalpneumonia/templates/index.html')
